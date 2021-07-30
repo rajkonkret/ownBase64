@@ -3,7 +3,6 @@ import java.util.Base64;
 public class Main {
     public static void main(String[] args) {
 
-
         String input = "ABC";
         System.out.println(Base64.getEncoder().encodeToString(input.getBytes()));
         String ownBase64 = ownBase64Encode(input);
@@ -31,7 +30,6 @@ public class Main {
             binary += factor;
         }
 
-        System.out.println(binary.length());
         int bl = binary.length();
         for (int i = 0; i < bl; i += 6) {
             if (bl - i == 16) {
