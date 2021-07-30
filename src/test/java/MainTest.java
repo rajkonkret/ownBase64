@@ -11,7 +11,7 @@ class MainTest {
 
     @Test
     void ownBase64StringTestSchouldReturn() {
-        String[] input = {"ABC\n", "ab@yz\n", "Radek", "GRa", "klasa23", "Tak@","kartaGina@#$"};
+        String[] input = {"ABC\n", "ab@yz\n", "Radek", "GRa", "klasa23", "Tak@", "kartaGina@#$"};
         HashMap<String, String> expected = new HashMap<>();
         for (int i = 0; i < input.length; i++) {
             String encoded = Base64.getEncoder().encodeToString(input[i].getBytes());
@@ -28,5 +28,14 @@ class MainTest {
         String input = "Rade";
         String res = Main.ownBase64Encode(input);
         Assert.assertNotNull(res);
+    }
+
+    @Test
+    void decodeFromString() {
+        String input = "QUJD";
+        String expected = new String(Base64.getDecoder().decode(input));
+        String res = new String(Main.decode(input));
+        Assert.assertEquals(expected, res);
+        System.out.println(expected + " " + res);
     }
 }

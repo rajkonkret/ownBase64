@@ -18,7 +18,7 @@ public class Main {
      * @param s the byte array (not null)
      * @return the translated Base64 string (not null)
      */
-    static public String ownBase64Encode(String s) {
+    public static String ownBase64Encode(String s) {
         String Symbols = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
         String output = "";
         String binary = "";
