@@ -1,32 +1,48 @@
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.stream.Collectors;
+import java.util.Base64;
 
 public class Main {
     public static void main(String[] args) {
-        String Symbols = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-        String input = "Tes";
-        String ownBase64 = ownBase64(input);
+
+        String input = "ABC";
+        System.out.println(Base64.getEncoder().encodeToString(input.getBytes()));
+        String ownBase64 = ownBase64Encode(input);
         System.out.println(ownBase64);
         System.out.println(ownBase64.length());
-
-        for (int i = 0; i < ownBase64.length() - 6; i += 6) {
-            System.out.println(ownBase64.substring(i, i + 6));
-        }
     }
 
-    static public String ownBase64(String s) {
-
+    static public String ownBase64Encode(String s) {
+        String Symbols = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+        String output = "";
         String binary = "";
-        for (int i = 0; i < s.length(); i++) {
-            binary += String.format("%8s", Integer.toBinaryString(s.charAt(i))).replace(' ', '0');
+        String pad = "=";
+        boolean addPAd = false;
+        boolean addTwoPad = false;
 
+        for (int i = 0; i < s.length(); i++) {
+            String factor = String.format("%8s", Integer.toBinaryString(s.charAt(i))).replace(' ', '0');
+            binary += factor;
         }
-//        String raw = Arrays.stream(binary.split(" "))
-//                .map(s1 -> Integer.parseInt(s1, 2))
-//                .map(Character::toString)
-//                .collect(Collectors.joining()); // cut the space
-//        return raw;
-        return binary;
+
+        System.out.println(binary.length());
+        int bl = binary.length();
+        for (int i = 0; i < bl; i += 6) {
+            if (bl - i == 16) {
+                binary += "00";
+                addPAd = true;
+            } else if (bl - i == 8) {
+                binary += "0000";
+                addTwoPad = true;
+            }
+            String factor = binary.substring(i, i + 6);
+            output += Symbols.charAt(Integer.parseInt(factor, 2));
+        }
+
+        if (addPAd) {
+            output += "=";
+        } else if (addTwoPad) {
+            output += "==";
+        }
+
+        return output;
     }
 }
