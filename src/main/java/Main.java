@@ -1,14 +1,17 @@
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.Base64;
 
+@Slf4j
 public class Main {
     public static void main(String[] args) {
 
         String input = "ABC";
-        System.out.println(Base64.getEncoder().encodeToString(input.getBytes()));
+        log.info(Base64.getEncoder().encodeToString(input.getBytes()));
         String ownBase64 = ownBase64Encode(input);
-        System.out.println(ownBase64);
-        System.out.println(ownBase64.length());
-        System.out.println(new String(decode("QUJD")));
+        log.info(ownBase64);
+        log.info(String.valueOf(ownBase64.length()));
+        log.info(new String(decode("QUJD")));
     }
 
     /**

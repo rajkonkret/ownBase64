@@ -1,9 +1,11 @@
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
 import java.util.Base64;
 import java.util.HashMap;
 
+@Slf4j
 class MainTest {
     @Test
     void main() {
@@ -17,7 +19,8 @@ class MainTest {
             String encoded = Base64.getEncoder().encodeToString(input[i].getBytes());
             expected.put(input[i], encoded);
         }
-        System.out.println(expected);
+        log.info(expected.toString());
+        //System.out.println(expected);
         expected.forEach(
                 (k, v) -> Assert.assertEquals(v, Main.ownBase64Encode(k))
         );
@@ -36,6 +39,6 @@ class MainTest {
         String expected = new String(Base64.getDecoder().decode(input));
         String res = new String(Main.decode(input));
         Assert.assertEquals(expected, res);
-        System.out.println(expected + " " + res);
+        log.info(expected + " " + res);
     }
 }
